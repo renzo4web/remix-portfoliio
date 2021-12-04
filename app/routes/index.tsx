@@ -1,5 +1,5 @@
 import type {MetaFunction, LoaderFunction, LinksFunction} from "remix";
-import {useLoaderData, json, Link} from "remix";
+import {useLoaderData, json, Link, Outlet, useParams} from "remix";
 import {Box, SimpleGrid} from "@chakra-ui/layout";
 
 
@@ -11,8 +11,9 @@ type IndexData = {
 
 import stylesUrl from "~/styles/demos/about.css";
 import {contentfulApi} from "../contentful-api";
+// @ts-ignore
 import {ContentfulItems} from "../types/Contentful";
-import {Heading} from "@chakra-ui/react";
+import {Center, Heading} from "@chakra-ui/react";
 
 
 export let links: LinksFunction = () => {
@@ -20,52 +21,17 @@ export let links: LinksFunction = () => {
 };
 
 
-// Loaders provide data to components and are only ever called on the server, so
-// you can connect to a database or run any server side code you want right next
-// to the component that renders it.
-// https://remix.run/api/conventions#loader
-export let loader: LoaderFunction = async () => {
+export let loader: LoaderFunction = async ({params}) => {
 
     const client = contentfulApi()
 
 
-    let data: IndexData = {
-        resources: [
-            {
-                name: "Remix Docs",
-                url: "https://remix.run/docs",
-            },
-            {
-                name: "React Router Docs",
-                url: "https://reactrouter.com/docs",
-            },
-            {
-                name: "Remix Discord",
-                url: "https://discord.gg/VBePs6d",
-            },
-        ],
-        demos: [
-            {
-                to: "demos/actions",
-                name: "Actions",
-            },
-            {
-                to: "demos/about",
-                name: "Nested Routes, CSS loading/unloading",
-            },
-            {
-                to: "demos/params",
-                name: "URL Params and Error Boundaries",
-            },
-        ],
-    };
-
     const entries = await client.getEntries()
 
+    console.log(params)
     return json(entries.items);
 };
 
-// https://remix.run/api/conventions#meta
 export let meta: MetaFunction = () => {
     return {
         title: "Renzo4web",
@@ -73,46 +39,53 @@ export let meta: MetaFunction = () => {
     };
 };
 
-// https://remix.run/guides/routing#index-routes
 export default function Index() {
     let items = useLoaderData<ContentfulItems[]>();
-
-    console.log(items)
 
     return (
         <div>
             <main>
-                <h2>Welcome to My Portfolio</h2>
-                <p> This is what I can do 🥳</p>
-                <h2>Projects</h2>
-                <SimpleGrid my={10} minChildWidth="200px" columns={2} spacing={15}>
+                <Center display={'flex'} flexDir={'column'} >
+                    <h2>Welcome to My Portfolio</h2>
+                    <p> This is what I can do 🥳</p>
+                </Center>
+                <h2>Web</h2>
+                <SimpleGrid my={10} minChildWidth="350px" columns={2} spacing={15}>
                     {items.filter(item => item.fields.tags === "selected").map(({
                                                                                     sys,
                                                                                     fields
                                                                                 }) => (
-                        <Box key={sys.id} bg="black" color={'white'} borderRadius={5} width={'100%'}
+                        <Box key={sys.id} display={'flex'} flexDir={'column'}
+                             borderRadius='5px' width={'100%'}
+                             borderWidth="1px"
+                             borderColor='#000'
+                             borderStyle={"solid"}
+                             boxShadow='outline'
                              p={20}>
-                            <Heading as='h3' style={{textAlign: 'center'}} size='xs'>
+                            <Heading as='h3' my={0} style={{textAlign: 'center'}} size='xs'>
                                 {fields.title}
                             </Heading>
-
-
                             <p>
                                 {fields.description}
                             </p>
-                            <a href={fields.linkDemo}>Demo</a>
+                            <Box mt={'auto'}>
+                                <a href={fields.linkDemo}>Demo</a>
+                            </Box>
                         </Box>
                     ))}
                 </SimpleGrid>
 
 
+                <h2>Mobile</h2>
                 <SimpleGrid minChildWidth="200px" my={10} columns={2} spacing={10}>
                     {items.filter(item => item.fields.tags === "mobile").map(({
                                                                                   sys,
                                                                                   fields
                                                                               }) => (
-                        <Box key={sys.id} bg="tomato" width={'100%'} padding={10}>
-                            {fields.title}
+                        <Box key={sys.id} bg="#2b2d42" color={'white'} width={'100%'} padding={10}>
+                            <Heading as='h3' my={0} style={{textAlign: 'center'}} size='xs'>
+                                {fields.title}
+                            </Heading>
                             <p>
                                 {fields.description}
                             </p>

@@ -12,7 +12,7 @@ const Navbar = () => {
 					<Link  to="/about">About</Link>
 				</li>
 				<li>
-					<a href="https://github.com/remix-run/remix">GitHub</a>
+					<a href="https://github.com/renzo4web" target={'_blank'}>GitHub</a>
 				</li>
 			</ul>
 		</nav>
