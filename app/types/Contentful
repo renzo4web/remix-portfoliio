@@ -1,0 +1,224 @@
+export interface ContentfulItems {
+    metadata: Metadata;
+    sys:      AuthorSys;
+    fields:   ContentfulItemFields;
+}
+
+export interface ContentfulItemFields {
+    slug?:             string;
+    title:             string;
+    technologiesUsed?: string;
+    description?:      string;
+    heroImg?:          HeroImg;
+    body?:             BodyClass | string;
+    tags?:             string[] | TagsEnum;
+    linkDemo?:         string;
+    date?:             string;
+    heroImage?:        HeroImage;
+    author?:           Author;
+    publishDate?:      string;
+    name?:             string;
+    company?:          string;
+    shortBio?:         string;
+    email?:            string;
+    phone?:            string;
+    facebook?:         string;
+    twitter?:          string;
+    github?:           string;
+    image?:            HeroImage;
+}
+
+export interface Author {
+    metadata: Metadata;
+    sys:      AuthorSys;
+    fields:   AuthorFields;
+}
+
+export interface AuthorFields {
+    name:     string;
+    title:    string;
+    company:  string;
+    shortBio: string;
+    email:    string;
+    phone:    string;
+    facebook: string;
+    twitter:  string;
+    github:   string;
+    image:    HeroImage;
+}
+
+export interface HeroImage {
+    sys: HeroImageSys;
+}
+
+export interface HeroImageSys {
+    type:     PurpleType;
+    linkType: LinkType;
+    id:       ID;
+}
+
+export enum ID {
+    BlogPost = "blogPost",
+    Master = "master",
+    Person = "person",
+    Project = "project",
+    ProjectSelected = "projectSelected",
+    Qri4O89M8Abt = "qri4o89m8abt",
+    The4NzwDSDLGECGIiokKomsyI = "4NzwDSDlGECGIiokKomsyI",
+    The4ShwYI3POEGkw0Eg6KcyaQ = "4shwYI3POEGkw0Eg6kcyaQ",
+    The6Od9V3WzLOysiMum0Wkmme = "6Od9v3wzLOysiMum0Wkmme",
+    The7OrLdboQQowIUs22KAW4U = "7orLdboQQowIUs22KAW4U",
+}
+
+export enum LinkType {
+    Asset = "Asset",
+    ContentType = "ContentType",
+    Environment = "Environment",
+    Space = "Space",
+    Tag = "Tag",
+}
+
+export enum PurpleType {
+    Link = "Link",
+}
+
+export interface Metadata {
+    tags: HeroImage[];
+}
+
+export interface AuthorSys {
+    space:        HeroImage;
+    id:           string;
+    type:         FluffyType;
+    createdAt:    Date;
+    updatedAt:    Date;
+    environment:  HeroImage;
+    revision:     number;
+    contentType?: HeroImage;
+    locale:       Locale;
+}
+
+export enum Locale {
+    EnUS = "en-US",
+}
+
+export enum FluffyType {
+    Asset = "Asset",
+    Entry = "Entry",
+}
+
+export interface BodyClass {
+    data:     BodyData;
+    content:  BodyContent[];
+    nodeType: BodyNodeType;
+}
+
+export interface BodyContent {
+    data:     FluffyData;
+    content:  PurpleContent[];
+    nodeType: FluffyNodeType;
+}
+
+export interface FluffyContent {
+    data:     BodyData;
+    marks?:   Mark[];
+    value?:   string;
+    nodeType: PurpleNodeType;
+    content?: PurpleContent[];
+}
+
+export interface PurpleContent {
+    data:     PurpleData;
+    marks?:   Mark[];
+    value?:   string;
+    nodeType: PurpleNodeType;
+    content?: FluffyContent[];
+}
+
+export interface BodyData {
+}
+
+export interface Mark {
+    type: MarkType;
+}
+
+export enum MarkType {
+    Bold = "bold",
+    Code = "code",
+    Italic = "italic",
+    Underline = "underline",
+}
+
+export enum PurpleNodeType {
+    Hyperlink = "hyperlink",
+    ListItem = "list-item",
+    Paragraph = "paragraph",
+    Text = "text",
+}
+
+export interface PurpleData {
+    uri?: string;
+}
+
+export interface FluffyData {
+    target?: HeroImg;
+}
+
+export interface HeroImg {
+    metadata: Metadata;
+    sys:      AuthorSys;
+    fields:   HeroImgFields;
+}
+
+export interface HeroImgFields {
+    title:        string;
+    description?: string;
+    file:         File;
+}
+
+export interface File {
+    url:         string;
+    details:     Details;
+    fileName:    string;
+    contentType: ContentType;
+}
+
+export enum ContentType {
+    ImageGIF = "image/gif",
+    ImageJPEG = "image/jpeg",
+    ImagePNG = "image/png",
+}
+
+export interface Details {
+    size:  number;
+    image: Image;
+}
+
+export interface Image {
+    width:  number;
+    height: number;
+}
+
+export enum FluffyNodeType {
+    Blockquote = "blockquote",
+    EmbeddedAssetBlock = "embedded-asset-block",
+    Heading1 = "heading-1",
+    Heading2 = "heading-2",
+    Heading3 = "heading-3",
+    Heading4 = "heading-4",
+    Heading5 = "heading-5",
+    Heading6 = "heading-6",
+    Hr = "hr",
+    Paragraph = "paragraph",
+    UnorderedList = "unordered-list",
+}
+
+export enum BodyNodeType {
+    Document = "document",
+}
+
+export enum TagsEnum {
+    Mobile = "mobile",
+    Museum = "museum",
+    Selected = "selected",
+}

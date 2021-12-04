@@ -4,6 +4,7 @@ node_modules
 .vercel
 .output
 .env
+.idea
 
 public/build
 api/build
