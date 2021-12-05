@@ -39,13 +39,13 @@ export let meta: MetaFunction = () => {
     };
 };
 
-export default function Index() {
+export default function Home() {
     let items = useLoaderData<ContentfulItems[]>();
 
     return (
         <div>
             <main>
-                <Center display={'flex'} flexDir={'column'} >
+                <Center display={'flex'} flexDir={'column'}>
                     <h2>Welcome to My Portfolio</h2>
                     <p> This is what I can do 🥳</p>
                 </Center>
@@ -94,6 +94,16 @@ export default function Index() {
                 </SimpleGrid>
 
 
+                <Box my={'2em'}>
+                    <Link to={'projects'}>
+                        <Heading  as='h3' my={0} style={{textAlign: 'center'}} size='md'>
+                            All Projects
+                        </Heading>
+                    </Link>
+                </Box>
+
+
+                <Outlet/>
             </main>
         </div>
     );
